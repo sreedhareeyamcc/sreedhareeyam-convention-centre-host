@@ -252,49 +252,60 @@
     <script src="assets/js/app.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
-        $(document).ready(function() {
-          fetch('assets/json/images.json')
-            .then(response => response.json())
-            .then(images => {
-              const container = document.getElementById('json-image-container');
-              images.forEach((image, index) => {
-                const block = document.createElement('div');
-                block.className = 'project-block_one col-lg-4 col-md-6 col-sm-12 mb-4';
-                block.innerHTML = `
-                  <div class="project-block_one-inner wow fadeInRight" data-wow-delay="300ms" data-wow-duration="1500ms">
-                    <a href="${image}" title="Sreedhareeyam Convention Centre ${index}" class="popup-link">
-                      <div class="gallery-card">
-                        <img src="${image}" alt="Sreedhareeyam Convention Centre ${index}">
-                      </div>
-                    </a>
-                  </div>
-                `;
-                container.appendChild(block);
-              });
-    
-              // Initialize Magnific Popup after all images are added
-              $('.popup-link').magnificPopup({
-                type: 'image',
-                mainClass: 'mfp-fade',
-                removalDelay: 300,
-                gallery: {
-                  enabled: true,
-                  navigateByImgClick: true,
-                  preload: [0, 1] // Preloads the previous and next images
-                },
-                callbacks: {
-                  open: function() {
-                    console.log('Popup is opened');
-                  },
-                  close: function() {
-                    console.log('Popup is closed');
-                  }
-                }
-              });
-            })
-            .catch(error => console.error('Error fetching images:', error));
-        });
-    </script>
+  $(document).ready(function () {
+    const container = document.getElementById('json-image-container');
+
+    function createImageBlock(image, index) {
+      const block = document.createElement('div');
+      block.className = 'project-block_one col-lg-4 col-md-6 col-sm-12 mb-4';
+      block.innerHTML = `
+        <div class="project-block_one-inner wow fadeInRight" data-wow-delay="300ms" data-wow-duration="1500ms">
+          <a href="${image}" title="Sreedhareeyam Convention Centre ${index}" class="popup-link">
+            <div class="gallery-card">
+              <img src="${image}" alt="Sreedhareeyam Convention Centre ${index}">
+            </div>
+          </a>
+        </div>
+      `;
+      container.appendChild(block);
+    }
+
+    // Fetch both JSON files
+    Promise.all([
+      fetch('assets/json/images.json').then(res => res.json()),
+      fetch('assets/json/addImages.json').then(res => res.json())
+    ])
+    .then(([images1, images2]) => {
+      const allImages = [...images1, ...images2];
+
+      allImages.forEach((image, index) => {
+        createImageBlock(image, index);
+      });
+
+      // Initialize Magnific Popup after all images are added
+      $('.popup-link').magnificPopup({
+        type: 'image',
+        mainClass: 'mfp-fade',
+        removalDelay: 300,
+        gallery: {
+          enabled: true,
+          navigateByImgClick: true,
+          preload: [0, 1]
+        },
+        callbacks: {
+          open: function () {
+            console.log('Popup is opened');
+          },
+          close: function () {
+            console.log('Popup is closed');
+          }
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching images:', error));
+  });
+</script>
+
 </body>
 
 </html>
