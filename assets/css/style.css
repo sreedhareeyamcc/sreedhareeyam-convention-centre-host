@@ -56,7 +56,7 @@
 }
 
 .home-city-hotel {
-    --body-bg: #0C2830
+    --body-bg: #C3AF00
 }
 
 html,
@@ -2899,10 +2899,10 @@ input[type=time]::-webkit-calendar-picker-indicator {
 }
 
 .th-btn2.style3 {
-    background-color: transparent;
-    color: var(--white-color);
+    background-color: var(--theme-color);
+    color: rgb(255, 255, 255);
     padding: 23px 26px;
-    border: 1px solid var(--white-color);
+    border: 1px solid var(--theme-color);
     box-shadow: none
 }
 
@@ -21029,7 +21029,7 @@ span.select2-selection.select2-selection--single:focus {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    border: 1px solid #112E2E;
+    /* border: 1px solid #112E2E; */
     padding: 19px 32px;
     -webkit-transition: 0.4s;
     transition: 0.4s
@@ -21143,7 +21143,7 @@ span.select2-selection.select2-selection--single:focus {
 .testi-box .box-text {
     font-weight: 400;
     font-size: 20px;
-    color: #D8DBDC;
+    color: #000;
     margin-bottom: 30px
 }
 
